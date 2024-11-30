@@ -19,9 +19,9 @@ const Cart = () => {
 
   const incrementCount = () => {
     const id = data.map((item) => item.id);
-    console.log(id);
+    // console.log(id);
     const found = id.find((e) => e > 5);
-    console.log(found);
+    // console.log(found);
   };
 
   incrementCount();
@@ -36,14 +36,21 @@ const Cart = () => {
           {data.map((item) => (
             <div key={item.id} className="">
               <div className="relative mb-5 flex flex-col items-center">
-                <img src={item.image.desktop} className="rounded-xl w-72" />
+                <img
+                  onClick={() => console.log(item.id)}
+                  src={item.image.desktop}
+                  className="rounded-xl w-72"
+                />
                 <button
-                  onClick={() =>
-                    setSelectedProduct((prevState) => [
-                      ...prevState,
-                      { ...item },
-                    ])
-                  }
+                  onClick={() => {
+                    const id = data.find((i) => i.id === item.id);
+                    if (id) {
+                      setSelectedProduct([...selectedProduct, { ...item }]);
+                      // toggleIncrementBtn();
+                    }
+                    console.log(id);
+                    return;
+                  }}
                   className="flex gap-2 items-center justify-center py-1 px-3 rounded-full border-0 ring-1 ring-inset ring-rose500 absolute -bottom-4 w-40  bg-rose50 hover:ring-red hover:text-red"
                 >
                   <img src="/images/icon-add-to-cart.svg" />
@@ -145,10 +152,10 @@ const Cart = () => {
           className="fixed inset-0 bg-rose300 bg-opacity-45 data-[closed]:opacity-0 data-[enter]:duration-300 data-[leave]:duration-200 data-[enter]:ease-out data-[leave]:ease-in"
         />
         <div className="fixed inset-0 z-10 w-screen overflow-y-auto">
-          <div className="flex min-h-full items-center justify-center">
+          <div className="flex min-h-full items-center justify-center p-5">
             <DialogPanel
               transition
-              className="relative transform overflow-hidden rounded-lg bg-rose50 p-6 shadow-xl transition-all data-[closed]:translate-y-4 data-[closed]:opacity-0 data-[enter]:duration-300 data-[leave]:duration-200 data-[enter]:ease-out data-[leave]:ease-in md:w-full md:max-w-md md:my-8 data-[closed]:md:translate-y-0 data-[closed]:md:scale-95"
+              className="relative w-full transform overflow-hidden rounded-lg bg-rose50 p-6 shadow-xl transition-all data-[closed]:translate-y-4 data-[closed]:opacity-0 data-[enter]:duration-300 data-[leave]:duration-200 data-[enter]:ease-out data-[leave]:ease-in md:w-full md:max-w-md md:my-8 data-[closed]:md:translate-y-0 data-[closed]:md:scale-95"
             >
               <img src="/images/icon-order-confirmed.svg" className="size-8" />
               <DialogTitle className="text-2xl md:text-3xl font-bold">
